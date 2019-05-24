@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: spring-boot-dynamic-datasource
+  # 基于类的代理，cglib代理
+  aop:
+    proxy-target-class: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 连接池启动时创建的连接数量的初始值
+      initial-size: 5
+      # 最小空闲值，当空闲的连接数少于阀值时，连接池就会去预申请连接
+      min-idle: 5
+      # 连接池的最大值，同一时间可以从连接池分配的最多连接数量
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置缓存preparedStatement即PSCache，PSCache对支持游标的数据库性能提升巨大（如oracle），在mysql下建议关闭
+      pool-prepared-statements: false
+      # 用来检测连接是否有效的sql，要求是一个查询语句。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用
+      validation-query: SELECT 1
+      validation-query-timeout: 30000
+      # 申请连接时执行validationQuery检测连接是否有效，该配置会降低性能
+      test-on-borrow: false
+      # 归还连接时执行validationQuery检测连接是否有效，该配置会降低性能
+      test-on-return: false
+      # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+      test-while-idle: true
+      # 配置druid过滤器
+      filters: stat,wall,log4j
+      web-stat-filter:
+        session-stat-enable: true
+        session-stat-max-count: 10
+        principal-session-name: user
+        profile-enable: true
+      filter:
+        stat:
+          db-type: mysql
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          enabled: true
+          config:
+            delete-allow: true
+            drop-table-allow: false
+        slf4j:
+          enabled: true
+      # 配置druid监控统计功能
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        # 禁用HTML页面上的“Reset All”功能
+        reset-enable: false
+        login-username: kBEuJPHmTgcVvKlt
+        loginPassword: zPhIJTa0jvsZ7sLj
+      use-global-data-source-stat: true
+      aop-patterns: com.qianlq.dynamicdatasource.service.*
+      master:
+        name: master
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/dynamic_master?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&useOldAliasMetadataBehavior=true
+        port: 3306
+        username: root
+        password: qlq1995/
+      slave-alpha:
+        name: SlaveAlpha
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/dynamic_slave_alpha?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&useOldAliasMetadataBehavior=true
+        port: 3306
+        username: root
+        password: qlq1995/
+      slave-beta:
+        name: SlaveBeta
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/dynamic_slave_beta?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&useOldAliasMetadataBehavior=true
+        port: 3306
+        username: root
+        password: qlq1995/
+
+server:
+  port: 9090
+
