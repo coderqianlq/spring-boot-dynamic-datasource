@@ -61,23 +61,29 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/dynamic_master?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&useOldAliasMetadataBehavior=true
         port: 3306
-        username: root
-        password: qlq1995/
+        username:
+        password:
       slave-alpha:
         name: SlaveAlpha
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/dynamic_slave_alpha?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&useOldAliasMetadataBehavior=true
         port: 3306
-        username: root
-        password: qlq1995/
+        username:
+        password:
       slave-beta:
         name: SlaveBeta
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/dynamic_slave_beta?useUnicode=true&characterEncoding=utf8&verifyServerCertificate=false&useSSL=false&useOldAliasMetadataBehavior=true
         port: 3306
-        username: root
-        password: qlq1995/
+        username:
+        password:
 
 server:
   port: 9090
 
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qianlq.dynamicdatasource.model.entity
+  type-handlers-package: com.qianlq.dynamicdatasource.mapper
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

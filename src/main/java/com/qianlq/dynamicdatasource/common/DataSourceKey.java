@@ -7,7 +7,10 @@ package com.qianlq.dynamicdatasource.common;
  */
 
 public enum DataSourceKey {
+    // master
     master,
+    // slaveAlpha
     slaveAlpha,
+    // slaveBeta
     slaveBeta
 }
