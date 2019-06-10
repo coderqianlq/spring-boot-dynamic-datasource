@@ -4,7 +4,6 @@ import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.qianlq.dynamicdatasource.common.DataSourceKey;
 import com.qianlq.dynamicdatasource.configuration.DynamicDataSourceContextHolder;
 import com.qianlq.dynamicdatasource.configuration.DynamicRoutingDataSource;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -72,22 +71,6 @@ public class DataSourceConfig {
         DynamicDataSourceContextHolder.slaveDataSourceKeys.addAll(dataSourceMap.keySet());
         DynamicDataSourceContextHolder.slaveDataSourceKeys.remove(DataSourceKey.master.name());
         return dynamicRoutingDataSource;
-    }
-
-    /**
-     * 配置 SqlSessionFactoryBean
-     *
-     * @return the sql session factory bean
-     * @ConfigurationProperties 在这里是为了将 MyBatis 的 mapper 位置和持久层接口的别名设置到
-     * Bean 的属性中，如果没有使用 *.xml 则可以不用该配置，否则将会产生 invalid bond statement 异常
-     */
-    @Bean
-    @ConfigurationProperties(prefix = "mybatis")
-    public SqlSessionFactoryBean sqlSessionFactoryBean() {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        // 配置数据源，此处配置为关键配置，如果没有将 dynamicDataSource 作为数据源则不能实现切换
-        sqlSessionFactoryBean.setDataSource(dynamicDataSource());
-        return sqlSessionFactoryBean;
     }
 
     /**
