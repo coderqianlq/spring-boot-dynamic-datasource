@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianlq.dynamicdatasource.mapper.UserMapper">
+
+    <sql id="user">
+        id id,
+        name name,
+        birth birth
+    </sql>
+
+    <select id="findUserById" parameterType="java.lang.String" resultType="com.qianlq.dynamicdatasource.model.entity.UserEntity">
+        select
+        <include refid="user"/>
+        from user
+        <where>
+            <if test="id != null and id != ''">
+                id = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>
