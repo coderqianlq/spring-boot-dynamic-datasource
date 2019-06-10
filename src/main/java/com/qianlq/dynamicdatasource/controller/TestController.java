@@ -1,7 +1,7 @@
 package com.qianlq.dynamicdatasource.controller;
 
 import com.qianlq.dynamicdatasource.common.BaseResult;
-import com.qianlq.dynamicdatasource.model.entity.UserEntity;
+import com.qianlq.dynamicdatasource.model.vo.UserVo;
 import com.qianlq.dynamicdatasource.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,7 +28,7 @@ public class TestController {
     @GetMapping(
             value = "/find"
     )
-    public BaseResult<UserEntity> findUser(@ApiParam(value = "用户id", required = true) @RequestParam(value = "id") String id) {
+    public BaseResult<UserVo> findUser(@ApiParam(value = "用户id", required = true) @RequestParam(value = "id") String id) {
         return userService.findUser(id);
     }
 }

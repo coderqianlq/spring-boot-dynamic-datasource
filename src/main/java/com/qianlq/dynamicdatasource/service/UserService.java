@@ -1,7 +1,7 @@
 package com.qianlq.dynamicdatasource.service;
 
 import com.qianlq.dynamicdatasource.common.BaseResult;
-import com.qianlq.dynamicdatasource.model.entity.UserEntity;
+import com.qianlq.dynamicdatasource.model.vo.UserVo;
 
 /**
  * @author qianliqing
@@ -17,5 +17,5 @@ public interface UserService {
      * @param id 用户id
      * @return UserEntity
      */
-    BaseResult<UserEntity> findUser(String id);
+    BaseResult<UserVo> findUser(String id);
 }

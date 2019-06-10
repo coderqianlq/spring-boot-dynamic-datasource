@@ -4,6 +4,7 @@ import com.qianlq.dynamicdatasource.common.BaseResult;
 import com.qianlq.dynamicdatasource.common.constant.Code;
 import com.qianlq.dynamicdatasource.mapper.UserMapper;
 import com.qianlq.dynamicdatasource.model.entity.UserEntity;
+import com.qianlq.dynamicdatasource.model.vo.UserVo;
 import com.qianlq.dynamicdatasource.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Autowired(required = false)
     private UserMapper userMapper;
 
     @Override
-    public BaseResult<UserEntity> findUser(String id) {
+    public BaseResult<UserVo> findUser(String id) {
         UserEntity user = userMapper.findUserById(id);
-        BaseResult<UserEntity> result = new BaseResult<>(Code.SUCCESS, user);
+        UserVo vo = new UserVo(user);
+        BaseResult<UserVo> result = new BaseResult<>(Code.SUCCESS, vo);
         return result;
     }
 }
